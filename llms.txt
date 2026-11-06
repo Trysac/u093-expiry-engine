@@ -1,0 +1,16 @@
+# expiry-engine
+
+> Track expirations by date, usage count or time after first use, generate reminders from rules and export them as RFC 5545 iCalendar Python package `trysac-expiry-engine`, import name `expiry_engine`, MIT licensed,
+> Python >= 3.10, no runtime dependencies.
+
+## Docs
+
+- [README](README.md): problem, install, usage example
+- [AGENTS](AGENTS.md): commands, folder map, conventions, limits
+- [Architecture](docs/ARCHITECTURE.md): shape of the package and its public API
+- [Testing](docs/TESTING.md): how to run and extend the tests
+
+## Optional
+
+- [Stack](docs/STACK.md): tools used and discarded
+- [Changelog](CHANGELOG.md): release history
