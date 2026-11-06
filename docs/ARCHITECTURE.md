@@ -2,28 +2,24 @@
 
 ## Purpose
 
-`trysac-expiry-engine` is a small, dependency-free Python library: Track expirations by date, usage count or time after first use, generate reminders from rules and export them as RFC 5545 iCalendar
+`trysac-expiry-engine` is a small, dependency-free Python library (import name `expiry_engine`) that tracks expirations by date, usage count or time after first use, generates reminders from rules and exports them as RFC 5545 iCalendar.
 
 ## Shape
 
 ```text
 caller code --> expiry_engine (public API in __init__.py)
                     |
-                    +-- pure functions, no I/O, no global state
+                    +-- errors.py   ExpiryError with stable codes
+                    +-- model.py    Item, Rule, Status, Reminder, evaluate,
+                    |               upcoming_reminders, record_use
+                    +-- ical.py     to_ical (RFC 5545 export)
 ```
 
-- **Public API**: the names listed in `__all__` of `src/expiry_engine/__init__.py`. Anything else is
-  internal and may change without a major version.
-- **Errors**: invalid input raises built-in exceptions (`ValueError`, `TypeError`) with a clear
-  message; the library never prints or exits.
-- **Side effects**: none. If a feature needs I/O, isolate it in its own module behind a small
-  interface and record the choice in an ADR.
-
-## Quality contract
-
-`scripts/check.py` is the single definition of the gates; `fabrica.json` tells the factory and CI
-how to run it. See [TESTING.md](TESTING.md).
+- **Public API**: the six names listed in `__all__` of `src/expiry_engine/__init__.py`, plus `ExpiryError`, `Item`, `Reminder`, `Rule`, `Status`, `__version__`. Other names are internal.
+- **Errors**: invalid input raises `ExpiryError` with a `code`; the library does not print or exit.
+- **Side effects**: none beyond a `logging` debug message through a `NullHandler` logger.
+- **Pure functions**: all operations take their clock (`today`, `dtstamp`) as arguments.
 
 ## Decisions
 
-Architecture decisions are recorded in [decisions/](decisions/) as numbered ADRs.
+No ADR directory exists in the repository at this time.
